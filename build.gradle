@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.3.2'
+    id 'org.springframework.boot' version '3.5.7'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -24,32 +24,19 @@ repositories {
     mavenCentral()
 }
 
-// ✅✅✅ ESTE BLOCO É A CORREÇÃO MAIS IMPORTANTE ✅✅✅
-// Ele força o Gradle a usar estas versões, ganhando qualquer conflito.
-configurations.all {
-    resolutionStrategy {
-        force 'io.jsonwebtoken:jjwt-api:0.12.6'
-        force 'io.jsonwebtoken:jjwt-impl:0.12.6'
-        force 'io.jsonwebtoken:jjwt-jackson:0.12.6'
-    }
-}
-
-
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    // Dependências JWT (Corretas)
+    // ✅ DEPENDÊNCIAS JWT ADICIONADAS AQUI
     implementation("io.jsonwebtoken:jjwt-api:0.12.6")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
-
     annotationProcessor 'org.projectlombok:lombok'
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
